@@ -3,10 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
-using System.IO; 
+
 
 namespace WebAddressbookTests
 {
@@ -18,9 +15,9 @@ namespace WebAddressbookTests
         public void ContactCreationTest()
         {
 
-            GoToHomePage();
-            Login(new AccountData("admin", "secret"));
-            AddNewContact();
+            app.Navigator.GoToHomePage();
+            app.Auth.Login(new AccountData("admin", "secret"));
+            app.Contacts.AddNewContact();
             ContactData contact = new ContactData("First name 71", "Last name 71");
             contact.Middlename = "Middle 71";
             contact.Address = "address test line 71";
@@ -31,10 +28,10 @@ namespace WebAddressbookTests
             contact.Aday = "7";
             contact.Amonth = "July";
             contact.New_group = "[none]";
-            FillContactInfo(contact);
-            SubmitContactCreation();
-            ReturnHomePage();
-            GoToHomePage();
+            app.Contacts.FillContactInfo(contact);
+            app.Contacts.SubmitContactCreation();
+            app.Navigator.ReturnHomePage();
+            app.Navigator.GoToHomePage();
             //  Logout();
         }
 
