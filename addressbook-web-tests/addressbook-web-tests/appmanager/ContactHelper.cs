@@ -28,6 +28,82 @@ namespace WebAddressbookTests
 
         }
 
+        public ContactHelper ModifyByPencil(int index, ContactData newData)
+        {
+            OpenEditFormByPencil(index);
+            FillContactInfo(newData, true);
+            SubmitContactModification();
+            manager.Navigator.ReturnHomePage();
+            return this;
+
+        }
+
+        public ContactHelper ModifyFromCard(int indexCard, ContactData newData)
+        {
+            OpenContactCard(indexCard);
+            OpenMofidicationFromCard();
+            FillContactInfo(newData, true);
+            SubmitContactModification();
+            manager.Navigator.ReturnHomePage();
+            return this;
+        }
+
+        public ContactHelper ContactChangeGroup(string indexContact, string newGroup)
+        {
+            SelectContact(indexContact);
+            ChooseNewGroup(newGroup);
+            MovetoNewGroup();
+            return this;
+        }
+
+
+        public ContactHelper SelectContact(string indexContact)
+        {
+
+            driver.FindElement(By.Id(indexContact)).Click();
+            return this;
+        }
+
+        public ContactHelper ChooseNewGroup(string newGroup)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(newGroup);
+            return this;
+        }
+
+        public ContactHelper MovetoNewGroup()
+        {
+
+            driver.FindElement(By.Name("add")).Click();
+            return this;
+        }
+
+        public ContactHelper OpenContactCard(int indexCard)
+        {
+
+            driver.FindElement(By.CssSelector("[href*='view.php?id=" + indexCard + "']")).Click();
+            return this;
+        }
+
+        public ContactHelper OpenMofidicationFromCard()
+        {
+
+            driver.FindElement(By.Name("modifiy")).Click();
+            return this;
+        }
+
+        public ContactHelper OpenEditFormByPencil(int index)
+        {
+            driver.FindElement(By.CssSelector("[href*='edit.php?id=" + index + "']")).Click();
+            return this;
+        }
+
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+     
         public ContactHelper AddNewContact()
         {
             driver.FindElement(By.LinkText("add new")).Click();
@@ -35,7 +111,7 @@ namespace WebAddressbookTests
 
         }
 
-        public ContactHelper FillContactInfo(ContactData contact)
+        public ContactHelper FillContactInfo(ContactData contact, bool skipGroup = false)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
@@ -89,8 +165,11 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("ayear")).Click();
             driver.FindElement(By.Name("ayear")).Clear();
             driver.FindElement(By.Name("ayear")).SendKeys(contact.Ayear);
-            driver.FindElement(By.Name("new_group")).Click();
-            new SelectElement(driver.FindElement(By.Name("new_group"))).SelectByText(contact.New_group);
+            if (!skipGroup)
+            {
+                driver.FindElement(By.Name("new_group")).Click();
+                new SelectElement(driver.FindElement(By.Name("new_group"))).SelectByText(contact.New_group);
+            }
             //   driver.FindElement(By.XPath("//div[@id='content']/form/select[5]/option[2]")).Click();
             driver.FindElement(By.Name("address2")).Click();
             driver.FindElement(By.Name("address2")).Clear();
@@ -102,6 +181,7 @@ namespace WebAddressbookTests
             return this;
 
         }
+
 
         public ContactHelper SubmitContactCreation()
         {
