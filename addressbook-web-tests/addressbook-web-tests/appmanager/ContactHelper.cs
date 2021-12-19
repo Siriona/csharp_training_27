@@ -13,6 +13,13 @@ namespace WebAddressbookTests
     public class ContactHelper : HelperBase
     {
 
+        /*
+        ---------------------------------------
+        "Operations" with contacts - for tests
+        ---------------------------------------
+        */
+
+
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
 
@@ -24,7 +31,6 @@ namespace WebAddressbookTests
             FillContactInfo(contact);
             SubmitContactCreation();
             return this;
-
 
         }
 
@@ -80,6 +86,16 @@ namespace WebAddressbookTests
             return this;
         }
 
+
+        /*
+        -----------------------------------
+        "Base" contact methods  
+        -----------------------------------
+        */ 
+
+        // Methods - Select and Opening pages
+
+
         public ContactHelper SelectContact(string indexContact)
         {
 
@@ -87,12 +103,60 @@ namespace WebAddressbookTests
             return this;
         }
 
+
+        public ContactHelper OpenContactCard(int indexCard)
+        {
+
+            driver.FindElement(By.CssSelector("[href*='view.php?id=" + indexCard + "']")).Click();
+            return this;
+        }
+
+
+        // Methods - Creating
+
+        public ContactHelper AddNewContact()
+        {
+            driver.FindElement(By.LinkText("add new")).Click();
+            return this;
+
+        }
+
+        public ContactHelper SubmitContactCreation()
+        {
+            driver.FindElement(By.XPath("//div[@id='content']/form/input[21]")).Click();
+            return this;
+
+        }
+
+        // Methods - Modifications
+
+        public ContactHelper OpenMofidicationFromCard()
+        {
+
+            driver.FindElement(By.Name("modifiy")).Click();
+            return this;
+        }
+
+        public ContactHelper OpenEditFormByPencil(int index)
+        {
+            driver.FindElement(By.CssSelector("[href*='edit.php?id=" + index + "']")).Click();
+            return this;
+        }
+
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+
+        // Methods - Change groups
+
         public ContactHelper ChooseNewGroup(string newGroup)
         {
             new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(newGroup);
             return this;
         }
-
 
 
         public ContactHelper MovetoNewGroup()
@@ -118,42 +182,47 @@ namespace WebAddressbookTests
             return this;
         }
 
+
+        // Methods - Removing
+
+        public ContactHelper Remove_home(string indexContact)
+        {
+            SelectContact(indexContact);
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
+        }
+
+        public ContactHelper Remove_FromCard(int indexCard)
+        {
+            OpenContactCard(indexCard);
+            OpenMofidicationFromCard();
+            driver.FindElement(By.XPath("//div[@id='content']/form[2]/input[2]")).Click();
+            return this;
+        }
+
+
+        public ContactHelper Remove()
+        {
+            driver.FindElement(By.LinkText("delete")).Click();
+            return this;
+        }
+
+        public ContactHelper Remove_accept()
+        {
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Accept();
+            return this;
+        }
+
+        public ContactHelper Remove_dismiss()
+        {
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Dismiss();
+            return this;
+        }
+
         
-
-
-        public ContactHelper OpenContactCard(int indexCard)
-        {
-
-            driver.FindElement(By.CssSelector("[href*='view.php?id=" + indexCard + "']")).Click();
-            return this;
-        }
-
-        public ContactHelper OpenMofidicationFromCard()
-        {
-
-            driver.FindElement(By.Name("modifiy")).Click();
-            return this;
-        }
-
-        public ContactHelper OpenEditFormByPencil(int index)
-        {
-            driver.FindElement(By.CssSelector("[href*='edit.php?id=" + index + "']")).Click();
-            return this;
-        }
-
-        public ContactHelper SubmitContactModification()
-        {
-            driver.FindElement(By.Name("update")).Click();
-            return this;
-        }
-
-     
-        public ContactHelper AddNewContact()
-        {
-            driver.FindElement(By.LinkText("add new")).Click();
-            return this;
-
-        }
+        // Methods - Filling info     
 
         public ContactHelper FillContactInfo(ContactData contact, bool skipGroup = false)
         {
@@ -203,15 +272,21 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("ayear")).Clear();
             driver.FindElement(By.Name("ayear")).SendKeys(contact.Ayear);
 
-            // condition - to choose if you need to fill group fields (for new contact) or not (for edit old contacts), because "add new" and "edit" forms are little different.
-            // skipGroup = false -> for "add new"; 
-            // skipGroup = true - > for "edit"
+
+            /* ------------------ 
+            Condition 
+            - to choose if you need to fill group fields (for new contact) or not (for edit old contacts), because "add new" and "edit" forms are little different
+            skipGroup = false -> for "add new" (default)
+            skipGroup = true - > for "edit"
+             */
+
             if (!skipGroup)
             {
                 driver.FindElement(By.Name("new_group")).Click();
                 new SelectElement(driver.FindElement(By.Name("new_group"))).SelectByText(contact.New_group);
             }
 
+            // ------------------
 
             driver.FindElement(By.Name("address2")).Click();
             driver.FindElement(By.Name("address2")).Clear();
@@ -225,11 +300,6 @@ namespace WebAddressbookTests
         }
 
 
-        public ContactHelper SubmitContactCreation()
-        {
-            driver.FindElement(By.XPath("//div[@id='content']/form/input[21]")).Click();
-            return this;
-
-        }
+        
     }
 }

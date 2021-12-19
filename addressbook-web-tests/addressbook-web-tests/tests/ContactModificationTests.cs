@@ -32,7 +32,7 @@ namespace WebAddressbookTests.tests
         public void ContactModificationTest_card()
         {
 
-            ContactData newData = new ContactData("First name Modified 1", "Last name Modified 1");
+            ContactData newData = new ContactData("First name Modified 2", "Last name Modified 2");
             newData.Middlename = "Middle 71";
             newData.Address = "address test line 71";
             newData.Bday = "7";
@@ -41,6 +41,9 @@ namespace WebAddressbookTests.tests
             newData.Aday = "7";
             newData.Amonth = "July";
             newData.New_group = "[none]";
+
+            app.Contacts.ModifyFromCard(3, newData);
+
 
         }
 
