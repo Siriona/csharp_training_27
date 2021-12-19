@@ -48,14 +48,37 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper ContactChangeGroup(string indexContact, string newGroup)
+        // 1st variant of opening group page - by CssSelector
+        public ContactHelper ContactChangeGroup(string indexContact, string newGroup, int groupPage)
         {
             SelectContact(indexContact);
             ChooseNewGroup(newGroup);
             MovetoNewGroup();
+            ReturnGroupPageAfterChanging(groupPage);
             return this;
         }
 
+        // 2nd variant of opening group page - by LinkText
+        public ContactHelper ContactChangeGroup_2(string indexContact, string newGroup, string groupName)
+        {
+            SelectContact(indexContact);
+            ChooseNewGroup(newGroup);
+            MovetoNewGroup();
+            ReturnGroupPageAfterChanging_2(groupName);
+            return this;
+        }
+
+        // open editing from certain group page - by pencil
+        public ContactHelper ModifyContactFromGroupPage_pencil(string groupID, int index, ContactData newData)
+        {
+
+            manager.Navigator.OpenCertainGroupPage(groupID);
+            OpenEditFormByPencil(index);
+            FillContactInfo(newData, true);
+            SubmitContactModification();
+            manager.Navigator.ReturnHomePage();
+            return this;
+        }
 
         public ContactHelper SelectContact(string indexContact)
         {
@@ -70,12 +93,33 @@ namespace WebAddressbookTests
             return this;
         }
 
+
+
         public ContactHelper MovetoNewGroup()
         {
 
             driver.FindElement(By.Name("add")).Click();
             return this;
         }
+
+
+        public ContactHelper ReturnGroupPageAfterChanging(int groupPage)
+        {
+
+            driver.FindElement(By.CssSelector("[href*='./?group=" + groupPage + "']")).Click();
+            return this;
+        }
+
+
+        public ContactHelper ReturnGroupPageAfterChanging_2(string groupName)
+        {
+
+            driver.FindElement(By.LinkText("group page " + groupName + "")).Click();
+            return this;
+        }
+
+        
+
 
         public ContactHelper OpenContactCard(int indexCard)
         {
@@ -122,9 +166,6 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
             driver.FindElement(By.Name("nickname")).Clear();
             driver.FindElement(By.Name("nickname")).SendKeys(contact.Nickname);
-            //   driver.FindElement(By.Name("photo")).Click();
-            //   driver.FindElement(By.Name("photo")).Clear();
-            //   driver.FindElement(By.Name("photo")).SendKeys("C:\\fakepath\\test.png");
             driver.FindElement(By.Name("title")).Clear();
             driver.FindElement(By.Name("title")).SendKeys(contact.Title);
             driver.FindElement(By.Name("company")).Clear();
@@ -149,28 +190,29 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("homepage")).SendKeys(contact.Homepage);
             driver.FindElement(By.Name("bday")).Click();
             new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(contact.Bday);
-            //   driver.FindElement(By.XPath(contact.Bday_path)).Click();
             driver.FindElement(By.Name("bmonth")).Click();
             new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText(contact.Bmonth);
-            //  driver.FindElement(By.XPath(contact.Bmonth_path)).Click();
             driver.FindElement(By.Name("byear")).Click();
             driver.FindElement(By.Name("byear")).Clear();
             driver.FindElement(By.Name("byear")).SendKeys(contact.Byear);
             driver.FindElement(By.Name("aday")).Click();
             new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(contact.Aday);
-            //  driver.FindElement(By.XPath("//div[@id='content']/form/select[3]/option[3]")).Click();
             driver.FindElement(By.Name("amonth")).Click();
             new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(contact.Amonth);
-            //  driver.FindElement(By.XPath("//div[@id='content']/form/select[4]/option[3]")).Click();
             driver.FindElement(By.Name("ayear")).Click();
             driver.FindElement(By.Name("ayear")).Clear();
             driver.FindElement(By.Name("ayear")).SendKeys(contact.Ayear);
+
+            // condition - to choose if you need to fill group fields (for new contact) or not (for edit old contacts), because "add new" and "edit" forms are little different.
+            // skipGroup = false -> for "add new"; 
+            // skipGroup = true - > for "edit"
             if (!skipGroup)
             {
                 driver.FindElement(By.Name("new_group")).Click();
                 new SelectElement(driver.FindElement(By.Name("new_group"))).SelectByText(contact.New_group);
             }
-            //   driver.FindElement(By.XPath("//div[@id='content']/form/select[5]/option[2]")).Click();
+
+
             driver.FindElement(By.Name("address2")).Click();
             driver.FindElement(By.Name("address2")).Clear();
             driver.FindElement(By.Name("address2")).SendKeys(contact.Address2);

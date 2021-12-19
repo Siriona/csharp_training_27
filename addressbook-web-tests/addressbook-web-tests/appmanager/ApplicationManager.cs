@@ -15,11 +15,13 @@ namespace WebAddressbookTests
 
         protected IWebDriver driver;
         protected string baseURL;
+        protected string groupURL;
 
         protected LoginHelper loginHelper;
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
+
 
         public ApplicationManager()
         {
@@ -27,9 +29,10 @@ namespace WebAddressbookTests
 
             driver = new FirefoxDriver();
             baseURL = "http://localhost/addressbook/";
+            groupURL = baseURL + "?group=";
 
             loginHelper = new LoginHelper(this);
-            navigator = new NavigationHelper(this, baseURL);
+            navigator = new NavigationHelper(this, baseURL, groupURL);
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
 

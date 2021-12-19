@@ -13,11 +13,15 @@ namespace WebAddressbookTests
     {
 
         private string baseURL;
+        private string groupURL;
 
-        public NavigationHelper(ApplicationManager manager, string baseURL)
+
+        public NavigationHelper(ApplicationManager manager, string baseURL, string groupURL)
             : base(manager)
         {
             this.baseURL = baseURL;
+            this.groupURL = groupURL;
+
 
         }
 
@@ -40,6 +44,12 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.LinkText("home page")).Click();
         }
+
+        public void OpenCertainGroupPage(string groupID)
+        {
+            driver.Navigate().GoToUrl(groupURL + groupID);
+        }
+
 
     }
 }
