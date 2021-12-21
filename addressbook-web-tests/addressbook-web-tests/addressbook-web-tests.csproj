@@ -84,6 +84,7 @@
     <Compile Include="tests\GroupCreationTests.cs" />
     <Compile Include="tests\ContactCreationTests.cs" />
     <Compile Include="tests\GroupRemovalTests.cs" />
+    <Compile Include="archive\If-else.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

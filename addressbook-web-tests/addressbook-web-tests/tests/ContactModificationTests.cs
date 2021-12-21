@@ -9,11 +9,17 @@ namespace WebAddressbookTests.tests
 {
     public class ContactModificationTests : TestBase
     {
+
+     
+
+        // 1st contact = 2 line in table
+
+
         [Test]
         public void ContactModificationTest_pencil()
         {
 
-            ContactData newData = new ContactData("First name 712_new", "Last name 712_new");
+            ContactData newData = new ContactData("First 0000000000", "Last 00000000000");
             newData.Middlename = "Middle 71";
             newData.Address = "address test line 71";
             newData.Bday = "7";
@@ -23,7 +29,7 @@ namespace WebAddressbookTests.tests
             newData.Amonth = "July";
             newData.New_group = "[none]";
 
-            app.Contacts.ModifyByPencil(4, newData);
+            app.Contacts.ModifyByPencil(2, newData);
 
 
         }
@@ -32,7 +38,7 @@ namespace WebAddressbookTests.tests
         public void ContactModificationTest_card()
         {
 
-            ContactData newData = new ContactData("First name Modified 2", "Last name Modified 2");
+            ContactData newData = new ContactData("First name Modified 000", "Last name Modified 0000");
             newData.Middlename = "Middle 71";
             newData.Address = "address test line 71";
             newData.Bday = "7";
@@ -47,6 +53,8 @@ namespace WebAddressbookTests.tests
 
         }
 
+        /*
+
         // tests for change group - from home page
 
         // 1st variant of opening group page - by CssSelector
@@ -55,7 +63,7 @@ namespace WebAddressbookTests.tests
         public void ContactChangeGroup()
         {
 
-            app.Contacts.ContactChangeGroup("7", "Test 1", 18);
+            app.Contacts.ContactChangeGroup(1, "Test 1", 18);
 
             
 
@@ -71,6 +79,7 @@ namespace WebAddressbookTests.tests
             app.Contacts.ContactChangeGroup_2("3", "Test 1", "\"Test 1\"");
 
         }
+
 
         // test for edit contact - from current group page
         [Test]
@@ -90,6 +99,10 @@ namespace WebAddressbookTests.tests
             app.Contacts.ModifyContactFromGroupPage_pencil("18", 30, newData);
 
         }
+
+        */
+
+
 
     }
 }

@@ -54,37 +54,10 @@ namespace WebAddressbookTests
             return this;
         }
 
-        // 1st variant of opening group page - by CssSelector
-        public ContactHelper ContactChangeGroup(string indexContact, string newGroup, int groupPage)
-        {
-            SelectContact(indexContact);
-            ChooseNewGroup(newGroup);
-            MovetoNewGroup();
-            ReturnGroupPageAfterChanging(groupPage);
-            return this;
-        }
+   
+              
 
-        // 2nd variant of opening group page - by LinkText
-        public ContactHelper ContactChangeGroup_2(string indexContact, string newGroup, string groupName)
-        {
-            SelectContact(indexContact);
-            ChooseNewGroup(newGroup);
-            MovetoNewGroup();
-            ReturnGroupPageAfterChanging_2(groupName);
-            return this;
-        }
-
-        // open editing from certain group page - by pencil
-        public ContactHelper ModifyContactFromGroupPage_pencil(string groupID, int index, ContactData newData)
-        {
-
-            manager.Navigator.OpenCertainGroupPage(groupID);
-            OpenEditFormByPencil(index);
-            FillContactInfo(newData, true);
-            SubmitContactModification();
-            manager.Navigator.ReturnHomePage();
-            return this;
-        }
+        
 
 
         /*
@@ -96,18 +69,22 @@ namespace WebAddressbookTests
         // Methods - Select and Opening pages
 
 
-        public ContactHelper SelectContact(string indexContact)
+        public ContactHelper SelectContact(int indexContact)
         {
 
-            driver.FindElement(By.Id(indexContact)).Click();
+            // contacts begin from 2nd line in table => 1st contact = tr [2] 
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + indexContact + "]/td/input")).Click();
             return this;
         }
 
-
+        
         public ContactHelper OpenContactCard(int indexCard)
+        // 1st contact = 2 line, 7 column
+        // 2nd contact = 3 line, 7 column, etc. 
         {
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + indexCard + "]/td[7]")).Click();
 
-            driver.FindElement(By.CssSelector("[href*='view.php?id=" + indexCard + "']")).Click();
+          //  driver.FindElement(By.CssSelector("[href*='view.php?id=" + indexCard + "']")).Click();
             return this;
         }
 
@@ -138,8 +115,11 @@ namespace WebAddressbookTests
         }
 
         public ContactHelper OpenEditFormByPencil(int index)
+
+        // 1st contact = 2 line, 8 column
+        // 2nd contact = 3 line, 8 column, etc. 
         {
-            driver.FindElement(By.CssSelector("[href*='edit.php?id=" + index + "']")).Click();
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + index + "]/td[8]")).Click();
             return this;
         }
 
@@ -149,43 +129,11 @@ namespace WebAddressbookTests
             return this;
         }
 
-
-        // Methods - Change groups
-
-        public ContactHelper ChooseNewGroup(string newGroup)
-        {
-            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(newGroup);
-            return this;
-        }
-
-
-        public ContactHelper MovetoNewGroup()
-        {
-
-            driver.FindElement(By.Name("add")).Click();
-            return this;
-        }
-
-
-        public ContactHelper ReturnGroupPageAfterChanging(int groupPage)
-        {
-
-            driver.FindElement(By.CssSelector("[href*='./?group=" + groupPage + "']")).Click();
-            return this;
-        }
-
-
-        public ContactHelper ReturnGroupPageAfterChanging_2(string groupName)
-        {
-
-            driver.FindElement(By.LinkText("group page " + groupName + "")).Click();
-            return this;
-        }
-
+    
 
         // Methods - Removing
 
-        public ContactHelper Remove_home(string indexContact)
+        public ContactHelper Remove_home(int indexContact)
         {
             SelectContact(indexContact);
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
@@ -300,6 +248,76 @@ namespace WebAddressbookTests
         }
 
 
-        
+            /*
+
+        // Methods - Change groups
+
+        public ContactHelper ChooseNewGroup(string newGroup)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(newGroup);
+            return this;
+        }
+
+
+        public ContactHelper MovetoNewGroup()
+        {
+
+            driver.FindElement(By.Name("add")).Click();
+            return this;
+        }
+
+
+        public ContactHelper ReturnGroupPageAfterChanging(int groupPage)
+        {
+
+            driver.FindElement(By.CssSelector("[href*='./?group=" + groupPage + "']")).Click();
+            return this;
+        }
+
+
+        public ContactHelper ReturnGroupPageAfterChanging_2(string groupName)
+        {
+
+            driver.FindElement(By.LinkText("group page " + groupName + "")).Click();
+            return this;
+        }
+
+
+
+             // 1st variant of opening group page - by CssSelector
+        public ContactHelper ContactChangeGroup(int numberContact, string newGroup, int groupPage)
+        {
+          //  SelectContact(numberContact);
+            ChooseNewGroup(newGroup);
+            MovetoNewGroup();
+            ReturnGroupPageAfterChanging(groupPage);
+            return this;
+        }
+
+        // 2nd variant of opening group page - by LinkText
+        public ContactHelper ContactChangeGroup_2(int numberContact, string newGroup, string groupName)
+        {
+          //  SelectContact(numberContact);
+            ChooseNewGroup(newGroup);
+            MovetoNewGroup();
+            ReturnGroupPageAfterChanging_2(groupName);
+            return this;
+        }
+
+
+
+        // open editing from certain group page - by pencil
+        public ContactHelper ModifyContactFromGroupPage_pencil(string groupID, int index, ContactData newData)
+        {
+
+            manager.Navigator.OpenCertainGroupPage(groupID);
+            OpenEditFormByPencil(index);
+            FillContactInfo(newData, true);
+            SubmitContactModification();
+            manager.Navigator.ReturnHomePage();
+            return this;
+        }
+
+        */
     }
 }
