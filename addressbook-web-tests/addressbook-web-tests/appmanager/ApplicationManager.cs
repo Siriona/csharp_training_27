@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -22,8 +24,9 @@ namespace WebAddressbookTests
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
 
+        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
-        public ApplicationManager()
+        private ApplicationManager()
         {
 
 
@@ -31,12 +34,37 @@ namespace WebAddressbookTests
             baseURL = "http://localhost/addressbook/";
             groupURL = baseURL + "?group=";
 
-            loginHelper = new LoginHelper(this);
+            loginHelper = new LoginHelper(this); 
             navigator = new NavigationHelper(this, baseURL, groupURL);
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
 
 
+        }
+
+         ~ApplicationManager()
+        {
+            try
+            {
+                driver.Quit();
+            }
+            catch (Exception)
+            {
+                // Ignore errors if unable to close the browser
+            }
+        }
+
+        public static ApplicationManager GetInstance()
+        {
+            if (! app.IsValueCreated)
+            {
+                ApplicationManager newInstance = new ApplicationManager();
+                newInstance.Navigator.GoToHomePage();
+                app.Value = newInstance;
+
+
+            }
+            return app.Value;
         }
 
         public IWebDriver Driver 
@@ -46,20 +74,6 @@ namespace WebAddressbookTests
                 return driver;
             }
         }
-
-
-        public void Stop()
-        {
-               try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-
-}
 
 
         public LoginHelper Auth

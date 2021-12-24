@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace WebAddressbookTests.tests
 {
-    public class ContactRemovalTests : TestBase
+    public class ContactRemovalTests : AuthTestBase
     {
         // 1st contact =  2 line in table
         
@@ -16,14 +16,35 @@ namespace WebAddressbookTests.tests
         [Test]
         public void ContactRemovalTest_home_dismiss()
         {
-            app.Contacts.Remove_home(2);
+            ContactData contact = new ContactData("First", "Last");
+            contact.Middlename = "";
+            contact.Address = "";
+            contact.Bday = "8";
+            contact.Bmonth = "July";
+            contact.Aday = "8";
+            contact.Amonth = "July";
+            contact.New_group = "[none]";
+
+
+            app.Contacts.CheckedRemove_home(2, contact);
             app.Contacts.Remove_dismiss();
         }
 
         [Test]
         public void ContactRemovalTest_home_accept()
         {
-            app.Contacts.Remove_home(2);
+
+            ContactData contact = new ContactData("First", "Last");
+            contact.Middlename = "";
+            contact.Address = "";
+            contact.Bday = "8";
+            contact.Bmonth = "July";
+            contact.Aday = "8";
+            contact.Amonth = "July";
+            contact.New_group = "[none]";
+
+
+            app.Contacts.CheckedRemove_home(2, contact);
             app.Contacts.Remove_accept();
         }
 
@@ -32,7 +53,16 @@ namespace WebAddressbookTests.tests
         [Test]
         public void ContactRemovalTest_card()
         {
-            app.Contacts.Remove_FromCard(2);
+            ContactData contact = new ContactData("First", "Last");
+            contact.Middlename = "";
+            contact.Address = "";
+            contact.Bday = "8";
+            contact.Bmonth = "July";
+            contact.Aday = "8";
+            contact.Amonth = "July";
+            contact.New_group = "[none]";
+
+            app.Contacts.CheckedRemove_FromCard(2, contact);
         }
 
         

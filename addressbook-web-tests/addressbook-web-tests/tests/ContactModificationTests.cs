@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace WebAddressbookTests.tests
 {
-    public class ContactModificationTests : TestBase
+    public class ContactModificationTests : AuthTestBase
     {
 
      
@@ -19,17 +19,24 @@ namespace WebAddressbookTests.tests
         public void ContactModificationTest_pencil()
         {
 
-            ContactData newData = new ContactData("First 0000000000", "Last 00000000000");
-            newData.Middlename = "Middle 71";
-            newData.Address = "address test line 71";
+            ContactData newData = new ContactData("First New", "Last New");
+            newData.Middlename = "";
+            newData.Address = "";
             newData.Bday = "7";
-            //   contact.Bday_path = "//option[@value='10']";
             newData.Bmonth = "June";
             newData.Aday = "7";
-            newData.Amonth = "July";
-            newData.New_group = "[none]";
+            newData.Amonth = "June";
 
-            app.Contacts.ModifyByPencil(2, newData);
+            ContactData contact = new ContactData("First", "Last");
+            contact.Middlename = "";
+            contact.Address = "";
+            contact.Bday = "8";
+            contact.Bmonth = "July";
+            contact.Aday = "8";
+            contact.Amonth = "July";
+            contact.New_group = "[none]";
+
+            app.Contacts.CheckedModifyByPencil(2, contact, newData);
 
 
         }
@@ -38,17 +45,24 @@ namespace WebAddressbookTests.tests
         public void ContactModificationTest_card()
         {
 
-            ContactData newData = new ContactData("First name Modified 000", "Last name Modified 0000");
-            newData.Middlename = "Middle 71";
-            newData.Address = "address test line 71";
+            ContactData newData = new ContactData("First New", "Last New");
+            newData.Middlename = "";
+            newData.Address = "";
             newData.Bday = "7";
             newData.Bmonth = "June";
-            //   contact.Bmonth_path = "//option[@value='June']";
             newData.Aday = "7";
-            newData.Amonth = "July";
-            newData.New_group = "[none]";
+            newData.Amonth = "June";
 
-            app.Contacts.ModifyFromCard(3, newData);
+            ContactData contact = new ContactData("First", "Last");
+            contact.Middlename = "";
+            contact.Address = "";
+            contact.Bday = "8";
+            contact.Bmonth = "July";
+            contact.Aday = "8";
+            contact.Amonth = "July";
+            contact.New_group = "[none]";
+
+            app.Contacts.CheckedModifyFromCard(2, contact, newData);
 
 
         }

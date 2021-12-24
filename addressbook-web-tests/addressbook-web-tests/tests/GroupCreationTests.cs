@@ -7,16 +7,16 @@ using System.Text;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests : TestBase
+    public class GroupCreationTests : AuthTestBase
     {
      
 
         [Test]
         public void GroupCreationTest()
         {
-            GroupData group = new GroupData("test_name 1");
-            group.Header = "test_header 1";
-            group.Footer = "test_footer 1";
+            GroupData group = new GroupData("test_name 100");
+            group.Header = "test_header 100";
+            group.Footer = "test_footer 100";
             app.Groups.Create(group);
   
         }

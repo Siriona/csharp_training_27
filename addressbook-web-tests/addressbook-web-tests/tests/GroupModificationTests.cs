@@ -9,7 +9,7 @@ namespace WebAddressbookTests
 {
     [TestFixture]
 
-    public class GroupModificationTests : TestBase
+    public class GroupModificationTests : AuthTestBase
     {
 
         [Test]
@@ -17,10 +17,14 @@ namespace WebAddressbookTests
         {
 
             GroupData newData = new GroupData("test_name new");
-            newData.Header = "test_header new";
-            newData.Footer = "test_footer new";
+            GroupData group = new GroupData("test_name first");
 
-            app.Groups.Modify(1, newData);
+            newData.Header = null;
+            newData.Footer = null;
+            group.Header = null;
+            group.Footer = null;
+
+            app.Groups.CheckedModify(1, newData, group);
 
         }
 

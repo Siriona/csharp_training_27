@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactCreationTests : TestBase
+    public class ContactCreationTests : AuthTestBase
     {
        
         [Test]
@@ -18,9 +18,7 @@ namespace WebAddressbookTests
             contact.Middlename = "Middle 71";
             contact.Address = "address test line 71";
             contact.Bday = "7";
-            //   contact.Bday_path = "//option[@value='10']";
             contact.Bmonth = "June";
-            //   contact.Bmonth_path = "//option[@value='June']";
             contact.Aday = "7";
             contact.Amonth = "July";
             contact.New_group = "[none]";

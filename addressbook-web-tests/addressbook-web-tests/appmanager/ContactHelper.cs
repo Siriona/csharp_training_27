@@ -34,18 +34,52 @@ namespace WebAddressbookTests
 
         }
 
+        public bool ContactIsPresent()
+        {
+            return IsElementPresent(By.Name("entry"));
+
+        }
+
         public ContactHelper ModifyByPencil(int index, ContactData newData)
         {
-            OpenEditFormByPencil(index);
-            FillContactInfo(newData, true);
-            SubmitContactModification();
-            manager.Navigator.ReturnHomePage();
+            manager.Navigator.GoToHomePage();
+
+                OpenEditFormByPencil(index);
+                FillContactInfo(newData, true);
+                SubmitContactModification();
+                manager.Navigator.GoToHomePage();
+
+
             return this;
 
         }
 
+        public ContactHelper CheckedModifyByPencil(int index, ContactData contact, ContactData newData)
+        {
+            manager.Navigator.GoToHomePage();
+
+            if (! ContactIsPresent())
+            {
+                Create(contact);
+                ModifyByPencil(index, newData);
+            }
+
+            else 
+            {
+                ModifyByPencil(index, newData);
+
+            }
+
+
+            return this;
+
+        }
+
+       
+
         public ContactHelper ModifyFromCard(int indexCard, ContactData newData)
         {
+            manager.Navigator.GoToHomePage();
             OpenContactCard(indexCard);
             OpenMofidicationFromCard();
             FillContactInfo(newData, true);
@@ -54,17 +88,66 @@ namespace WebAddressbookTests
             return this;
         }
 
-   
-              
 
-        
+        public ContactHelper CheckedModifyFromCard(int indexCard, ContactData contact, ContactData newData)
+        {
+            manager.Navigator.GoToHomePage();
+
+            if (!ContactIsPresent())
+            {
+                Create(contact);
+
+                ModifyFromCard(indexCard, newData);
+
+            }
+            else
+            {
+                ModifyFromCard(indexCard, newData);
+            }
+
+            return this;
+        }
+
+        public ContactHelper CheckedRemove_home(int indexContact, ContactData contact)
+        {
+            if (!ContactIsPresent())
+            {
+                Create(contact);
+                Remove_home(indexContact);
+            }
+            else
+            {
+                Remove_home(indexContact);
+
+            }
+
+
+            return this;
+        }
+
+        public ContactHelper CheckedRemove_FromCard(int indexContact, ContactData contact)
+        {
+            if (!ContactIsPresent())
+            {
+                Create(contact);
+                Remove_FromCard(indexContact);
+            }
+            else
+            {
+                Remove_FromCard(indexContact);
+
+            }
+
+
+            return this;
+        }
 
 
         /*
         -----------------------------------
         "Base" contact methods  
         -----------------------------------
-        */ 
+        */
 
         // Methods - Select and Opening pages
 
@@ -135,6 +218,8 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove_home(int indexContact)
         {
+            manager.Navigator.GoToHomePage();
+
             SelectContact(indexContact);
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
@@ -142,6 +227,8 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove_FromCard(int indexCard)
         {
+            manager.Navigator.GoToHomePage();
+
             OpenContactCard(indexCard);
             OpenMofidicationFromCard();
             driver.FindElement(By.XPath("//div[@id='content']/form[2]/input[2]")).Click();
