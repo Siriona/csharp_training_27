@@ -10,7 +10,6 @@ namespace WebAddressbookTests.tests
 {
     public class ContactRemovalTests : AuthTestBase
     {
-        // 1st contact =  2 line in table
         
 
         [Test]
@@ -26,7 +25,7 @@ namespace WebAddressbookTests.tests
             contact.New_group = "[none]";
 
 
-            app.Contacts.CheckedRemove_home(2, contact);
+            app.Contacts.Remove_home_2(contact);
             app.Contacts.Remove_dismiss();
         }
 
@@ -44,8 +43,9 @@ namespace WebAddressbookTests.tests
             contact.New_group = "[none]";
 
 
-            app.Contacts.CheckedRemove_home(2, contact);
+            app.Contacts.Remove_home_2(contact);
             app.Contacts.Remove_accept();
+
         }
 
         
@@ -62,7 +62,7 @@ namespace WebAddressbookTests.tests
             contact.Amonth = "July";
             contact.New_group = "[none]";
 
-            app.Contacts.CheckedRemove_FromCard(2, contact);
+            app.Contacts.Remove_FromCard(contact);
         }
 
         

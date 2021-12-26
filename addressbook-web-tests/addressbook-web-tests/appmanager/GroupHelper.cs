@@ -34,72 +34,46 @@ namespace WebAddressbookTests
 
         }
 
-        public GroupHelper CheckedModify(int p, GroupData newData, GroupData group) // newData and group together - for ability to use different names for creating and modifying 
+        public GroupHelper Modify(GroupData newData, GroupData group) // newData and group together - for ability to use different names for creating and modifying 
         {
             manager.Navigator.GoToGroupsPage();
-            if (!GroupIsPresent())
-            {
-                Create(group);
-                Modify(p, newData);
+            CheckGroupCreate(group);
+            SelectGroup_2();
+            InitGroupModification();
+            FillGroupEditForm(newData);
+            SubmitGroupModification();
+            manager.Navigator.GoToGroupsPage();
 
-
-            }
-            else
-            {
-                Modify(p, newData);
-            }
             return this;
 
         }
 
-        public GroupHelper CheckedRemove(GroupData group, int p)
+        public GroupHelper CheckGroupCreate(GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
             if (!GroupIsPresent())
             {
                 Create(group);
 
-                Remove(p);
-
             }
 
-            else
-            {
-                Remove(p);
-            }
             return this;
 
-
-        }
-
-        public GroupHelper Modify(int p, GroupData newData)
-        {
-            manager.Navigator.GoToGroupsPage();
-           
-                SelectGroup(p);
-                InitGroupModification();
-                FillGroupEditForm(newData);
-                SubmitGroupModification();
-
-                manager.Navigator.GoToGroupsPage();
-            
-                return this;
-
         }
 
 
-        public GroupHelper Remove(int p)
+
+    
+
+
+        public GroupHelper Remove_2(GroupData group) 
         {
             manager.Navigator.GoToGroupsPage();
-               
-            
-                SelectGroup(p);
-                RemoveGroup();
-                manager.Navigator.GoToGroupsPage();
-            
 
-
-                
+            CheckGroupCreate(group);
+            SelectGroup_2();
+            RemoveGroup();
+            manager.Navigator.GoToGroupsPage();
             return this;
 
 
@@ -138,9 +112,10 @@ namespace WebAddressbookTests
 
 
 
-        public GroupHelper SelectGroup(int index)
+
+        public GroupHelper SelectGroup_2()
         {
-            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + index + "]/input")).Click();
+            driver.FindElement(By.Name("selected[]")).Click();
             return this;
 
         }
@@ -164,6 +139,42 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("update")).Click();
             return this;
         }
+
+
+        // if needs to remove/modify certain group, not the first only
+        /*
+        
+        
+        
+        /*public GroupHelper SelectGroup(int index)
+        {
+            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + index + "]/input")).Click();
+            return this;
+
+        }
+        
+        
+      
+
+
+
+        public GroupHelper Remove(int p) 
+        {
+            manager.Navigator.GoToGroupsPage();
+               
+            
+                SelectGroup(p);
+                RemoveGroup();
+                manager.Navigator.GoToGroupsPage();
+            
+
+
+                
+            return this;
+
+
+        }
+        */
 
     }
 }

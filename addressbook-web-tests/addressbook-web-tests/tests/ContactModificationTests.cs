@@ -36,10 +36,11 @@ namespace WebAddressbookTests.tests
             contact.Amonth = "July";
             contact.New_group = "[none]";
 
-            app.Contacts.CheckedModifyByPencil(2, contact, newData);
+            app.Contacts.ModifyByPencil(contact, newData);
 
 
         }
+
 
         [Test]
         public void ContactModificationTest_card()
@@ -62,12 +63,13 @@ namespace WebAddressbookTests.tests
             contact.Amonth = "July";
             contact.New_group = "[none]";
 
-            app.Contacts.CheckedModifyFromCard(2, contact, newData);
+            app.Contacts.ModifyFromCard(contact, newData);
 
 
         }
 
         /*
+       
 
         // tests for change group - from home page
 

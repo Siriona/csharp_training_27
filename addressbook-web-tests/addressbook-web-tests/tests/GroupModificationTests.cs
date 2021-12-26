@@ -24,7 +24,7 @@ namespace WebAddressbookTests
             group.Header = null;
             group.Footer = null;
 
-            app.Groups.CheckedModify(1, newData, group);
+            app.Groups.Modify(newData, group);
 
         }
 

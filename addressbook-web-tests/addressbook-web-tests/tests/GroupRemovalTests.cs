@@ -11,9 +11,9 @@ namespace WebAddressbookTests
     public class GroupRemovalTests : AuthTestBase
     {
         
-
+        /*
         [Test]
-        public void GroupRemovalTest()
+        public void GroupRemovalTest() 
         {
 
             GroupData group = new GroupData("test_name first");
@@ -23,15 +23,26 @@ namespace WebAddressbookTests
             app.Groups.CheckedRemove(group, 1);
 
         }
-
-      
-       
-       
-
-        
+        */
 
 
+        [Test]
+        public void GroupRemovalTest_checked()
+        {
+            GroupData group = new GroupData("test_name first");
+            group.Header = null;
+            group.Footer = null;
 
-       
+            app.Groups.Remove_2(group);
+
+        }
+
+
+
+
+
+
+
+
     }
 }
