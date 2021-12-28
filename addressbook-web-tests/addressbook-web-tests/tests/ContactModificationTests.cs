@@ -36,7 +36,8 @@ namespace WebAddressbookTests.tests
             contact.Amonth = "July";
             contact.New_group = "[none]";
 
-            app.Contacts.ModifyByPencil(contact, newData);
+            app.Contacts.CheckContactCreate(contact);
+            app.Contacts.ModifyByPencil(newData);
 
 
         }
@@ -63,7 +64,8 @@ namespace WebAddressbookTests.tests
             contact.Amonth = "July";
             contact.New_group = "[none]";
 
-            app.Contacts.ModifyFromCard(contact, newData);
+            app.Contacts.CheckContactCreate(contact);
+            app.Contacts.ModifyFromCard(newData);
 
 
         }

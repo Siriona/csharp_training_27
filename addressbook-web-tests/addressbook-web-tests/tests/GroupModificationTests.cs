@@ -13,7 +13,7 @@ namespace WebAddressbookTests
     {
 
         [Test]
-        public void GroupModificationTest()
+        public void GroupModificationTest_WithCreating()
         {
 
             GroupData newData = new GroupData("test_name new");
@@ -24,7 +24,8 @@ namespace WebAddressbookTests
             group.Header = null;
             group.Footer = null;
 
-            app.Groups.Modify(newData, group);
+            app.Groups.CheckGroupCreate(group);
+            app.Groups.Modify(newData);
 
         }
 

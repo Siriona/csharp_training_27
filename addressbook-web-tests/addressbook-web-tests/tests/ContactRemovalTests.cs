@@ -25,7 +25,8 @@ namespace WebAddressbookTests.tests
             contact.New_group = "[none]";
 
 
-            app.Contacts.Remove_home_2(contact);
+            app.Contacts.CheckContactCreate(contact);
+            app.Contacts.Remove_FromHomePage();
             app.Contacts.Remove_dismiss();
         }
 
@@ -42,8 +43,8 @@ namespace WebAddressbookTests.tests
             contact.Amonth = "July";
             contact.New_group = "[none]";
 
-
-            app.Contacts.Remove_home_2(contact);
+            app.Contacts.CheckContactCreate(contact);
+            app.Contacts.Remove_FromHomePage();
             app.Contacts.Remove_accept();
 
         }
@@ -62,7 +63,8 @@ namespace WebAddressbookTests.tests
             contact.Amonth = "July";
             contact.New_group = "[none]";
 
-            app.Contacts.Remove_FromCard(contact);
+            app.Contacts.CheckContactCreate(contact);
+            app.Contacts.Remove_FromCard();
         }
 
         

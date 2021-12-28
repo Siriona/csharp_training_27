@@ -36,13 +36,11 @@ namespace WebAddressbookTests
 
 
 
-        public ContactHelper ModifyByPencil(ContactData contact, ContactData newData)
+        public ContactHelper ModifyByPencil(ContactData newData)
         {
             manager.Navigator.GoToHomePage();
-            CheckContactCreate(contact);
             OpenEditFormByPencil_2();
-            FillContactInfo(newData, true);
-            SubmitContactModification();
+            EditContactInfo(newData);
             manager.Navigator.GoToHomePage();
 
 
@@ -53,14 +51,12 @@ namespace WebAddressbookTests
 
        
 
-        public ContactHelper ModifyFromCard(ContactData contact, ContactData newData)
+        public ContactHelper ModifyFromCard(ContactData newData)
         {
             manager.Navigator.GoToHomePage();
-            CheckContactCreate(contact);
             OpenContactCard_2();
             OpenMofidicationFromCard();
-            FillContactInfo(newData, true);
-            SubmitContactModification();
+            EditContactInfo(newData);
             manager.Navigator.GoToHomePage();
             return this;
         }
@@ -69,23 +65,21 @@ namespace WebAddressbookTests
 
 
 
-        public ContactHelper Remove_home_2(ContactData contact)
+        public ContactHelper Remove_FromHomePage()
         {
             manager.Navigator.GoToHomePage();
-
-            CheckContactCreate(contact);
             SelectContact_2();
-            Remove();
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+
             return this;
         }
 
    
         
 
-        public ContactHelper Remove_FromCard(ContactData contact)
+        public ContactHelper Remove_FromCard()
         {
             manager.Navigator.GoToHomePage();
-            CheckContactCreate(contact);
             OpenContactCard_2();
             OpenMofidicationFromCard();
             driver.FindElement(By.XPath("//div[@id='content']/form[2]/input[2]")).Click();
@@ -174,24 +168,26 @@ namespace WebAddressbookTests
             return this;
         }
 
+
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
             return this;
         }
 
-    
+        public ContactHelper EditContactInfo(ContactData newData)
+        {
+            FillContactInfo(newData, true);
+            SubmitContactModification();
+            return this;
+        }
+
+
 
         // Methods - Removing
 
-       
 
-        public ContactHelper Remove()
-        {
-            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
 
-            return this;
-        }
 
         public ContactHelper Remove_accept()
         {

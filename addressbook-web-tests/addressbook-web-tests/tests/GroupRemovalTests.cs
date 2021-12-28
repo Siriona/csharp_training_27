@@ -33,7 +33,8 @@ namespace WebAddressbookTests
             group.Header = null;
             group.Footer = null;
 
-            app.Groups.Remove_2(group);
+            app.Groups.CheckGroupCreate(group);
+            app.Groups.Remove();
 
         }
 
