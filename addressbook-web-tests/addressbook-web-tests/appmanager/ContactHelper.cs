@@ -8,6 +8,8 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
 
+
+
 namespace WebAddressbookTests
 {
     public class ContactHelper : HelperBase
@@ -61,9 +63,22 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public List<ContactData> GetContactist()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToHomePage();
+            IEnumerable<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            for(int i = 2; i <= elements.Count()+1; i++)
+            {
+                string fn = driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + i.ToString() + "]/td[3]")).Text;
+                string ln = driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + i.ToString() + "]/td[2]")).Text;
+                contacts.Add(new ContactData(fn, ln));        
+            }
+           
+          
 
-
-
+            return contacts;
+        }
 
         public ContactHelper Remove_FromHomePage()
         {

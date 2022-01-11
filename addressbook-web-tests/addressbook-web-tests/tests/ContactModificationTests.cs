@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace WebAddressbookTests.tests
+
+namespace WebAddressbookTests
 {
     public class ContactModificationTests : AuthTestBase
     {
@@ -36,9 +37,30 @@ namespace WebAddressbookTests.tests
             contact.Amonth = "July";
             contact.New_group = "[none]";
 
+            List<ContactData> oldContacts = app.Contacts.GetContactist();
+
+
             app.Contacts.CheckContactCreate(contact);
             app.Contacts.ModifyByPencil(newData);
 
+            List<ContactData> newContacts = app.Contacts.GetContactist();
+            if (oldContacts.Count > 0) //  if no contacts before test => old list is empty => no need to change records
+            {
+                oldContacts[0].Firstname = newData.Firstname;
+                oldContacts[0].Lastname = newData.Lastname;
+            }
+
+            else
+            {
+                newContacts.RemoveAt(0); 
+
+            }
+
+
+            oldContacts.Sort();
+            newContacts.Sort();
+
+            Assert.AreEqual(oldContacts, newContacts);
 
         }
 
@@ -64,10 +86,29 @@ namespace WebAddressbookTests.tests
             contact.Amonth = "July";
             contact.New_group = "[none]";
 
+            List<ContactData> oldContacts = app.Contacts.GetContactist();
+
             app.Contacts.CheckContactCreate(contact);
             app.Contacts.ModifyFromCard(newData);
 
+            List<ContactData> newContacts = app.Contacts.GetContactist();
+            if (oldContacts.Count > 0) //  if no contacts before test => old list is empty => no need to change records
+            {
+                oldContacts[0].Firstname = newData.Firstname;
+                oldContacts[0].Lastname = newData.Lastname;
+            }
 
+            else
+            {
+                newContacts.RemoveAt(0);
+
+            }
+
+
+            oldContacts.Sort();
+            newContacts.Sort();
+
+            Assert.AreEqual(oldContacts, newContacts);
         }
 
         /*

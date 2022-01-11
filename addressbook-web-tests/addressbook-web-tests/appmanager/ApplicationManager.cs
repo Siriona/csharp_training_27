@@ -42,6 +42,11 @@ namespace WebAddressbookTests
 
         }
 
+        public void WaitUpdatePage(Int32 waitSec = 5)
+        {
+            Thread.Sleep(waitSec * 1000);
+        }
+
          ~ApplicationManager()
         {
             try

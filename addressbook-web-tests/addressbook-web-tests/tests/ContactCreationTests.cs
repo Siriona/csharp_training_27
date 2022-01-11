@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
@@ -23,7 +24,18 @@ namespace WebAddressbookTests
             contact.Amonth = "July";
             contact.New_group = "[none]";
 
+            List<ContactData> oldContacts = app.Contacts.GetContactist();
+
+
             app.Contacts.Create(contact);
+
+            List<ContactData> newContacts = app.Contacts.GetContactist();
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+
+            Assert.AreEqual(oldContacts, newContacts);
+
 
             //app.Navigator.ReturnHomePage();
             //  Logout();
@@ -31,15 +43,15 @@ namespace WebAddressbookTests
 
 
 
-      
- 
-
-           
-
-       
 
 
 
-        
+
+
+
+
+
+
+
     }
 }
