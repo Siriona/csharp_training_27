@@ -23,10 +23,12 @@ namespace WebAddressbookTests
             group.Header = null;
             group.Footer = null;
 
+            app.Groups.CheckGroupCreate(group);
+
+
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
 
-           app.Groups.CheckGroupCreate(group);
           app.Groups.Remove();
 
             List<GroupData> newGroups = app.Groups.GetGroupList();

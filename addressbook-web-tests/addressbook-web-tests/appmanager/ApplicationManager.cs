@@ -31,6 +31,7 @@ namespace WebAddressbookTests
 
 
             driver = new FirefoxDriver();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
             baseURL = "http://localhost/addressbook/";
             groupURL = baseURL + "?group=";
 
@@ -42,10 +43,12 @@ namespace WebAddressbookTests
 
         }
 
+        /*
         public void WaitUpdatePage(Int32 waitSec = 5)
         {
             Thread.Sleep(waitSec * 1000);
         }
+        */
 
          ~ApplicationManager()
         {

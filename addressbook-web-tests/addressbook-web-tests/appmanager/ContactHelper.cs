@@ -208,6 +208,7 @@ namespace WebAddressbookTests
         {
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
+            driver.FindElement(By.CssSelector("div.msgbox"));
             return this;
         }
 
