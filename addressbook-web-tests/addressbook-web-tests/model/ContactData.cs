@@ -48,8 +48,8 @@ namespace WebAddressbookTests
 
         public ContactData (string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
 
         }
 
@@ -95,20 +95,8 @@ namespace WebAddressbookTests
         }
 
 
-        public string Firstname
-        {
+        public string Firstname { get; set; }
 
-            get
-            {
-                return firstname;
-            }
-
-            set
-            {
-                firstname = value;
-            }
-
-        }
         public string Middlename
         {
 
@@ -123,20 +111,9 @@ namespace WebAddressbookTests
             }
 
         }
-        public string Lastname
-        {
+        public string Lastname         { get; set; } 
 
-            get
-            {
-                return lastname;
-            }
 
-            set
-            {
-                lastname = value;
-            }
-
-        }
         public string Nickname
         {
 

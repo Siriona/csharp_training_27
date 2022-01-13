@@ -11,7 +11,7 @@ namespace WebAddressbookTests
     [TestFixture]
     public class ContactCreationTests : AuthTestBase
     {
-       
+
         [Test]
         public void ContactCreationTest()
         {
@@ -29,6 +29,9 @@ namespace WebAddressbookTests
 
             app.Contacts.Create(contact);
 
+            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
+
+
             List<ContactData> newContacts = app.Contacts.GetContactist();
             oldContacts.Add(contact);
             oldContacts.Sort();
@@ -43,7 +46,14 @@ namespace WebAddressbookTests
 
 
 
+        [Test]
 
+        public void ContactCountTest()
+        {
+
+        app.Contacts.GetContactCount();
+
+        }
 
 
 
