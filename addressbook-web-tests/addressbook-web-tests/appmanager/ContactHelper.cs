@@ -91,10 +91,10 @@ namespace WebAddressbookTests
         public int GetContactCount()
         {
 
-            IEnumerable<IWebElement> contactsC = driver.FindElements(By.Name("entry"));
-            return contactsC.Count();
+           // IEnumerable<IWebElement> contactsC = driver.FindElements(By.Name("entry"));
+           // return contactsC.Count();
 
-            //  return driver.FindElements(By.Name("entry")).Count;
+           return driver.FindElements(By.Name("entry")).Count;
 
         }
 

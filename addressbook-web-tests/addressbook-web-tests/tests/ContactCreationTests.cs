@@ -46,15 +46,7 @@ namespace WebAddressbookTests
 
 
 
-        [Test]
-
-        public void ContactCountTest()
-        {
-
-        app.Contacts.GetContactCount();
-
-        }
-
+        
 
 
 

@@ -45,6 +45,9 @@ namespace WebAddressbookTests
 
             app.Contacts.ModifyByPencil(newData);
 
+            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
+
+
             List<ContactData> newContacts = app.Contacts.GetContactist();
           
                 oldContacts[0].Firstname = newData.Firstname;
@@ -89,6 +92,9 @@ namespace WebAddressbookTests
             List<ContactData> oldContacts = app.Contacts.GetContactist();
 
             app.Contacts.ModifyFromCard(newData);
+
+            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
+
 
             List<ContactData> newContacts = app.Contacts.GetContactist();
             

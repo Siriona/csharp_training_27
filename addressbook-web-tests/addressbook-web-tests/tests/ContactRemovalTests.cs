@@ -33,6 +33,8 @@ namespace WebAddressbookTests
 
             app.Contacts.Remove_FromHomePage();
             app.Contacts.Remove_dismiss();
+            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
+
 
             List<ContactData> newContacts = app.Contacts.GetContactist();
             Assert.AreEqual(oldContacts, newContacts);
@@ -58,7 +60,11 @@ namespace WebAddressbookTests
 
              app.Contacts.Remove_FromHomePage();
               app.Contacts.Remove_accept();
-         //   app.WaitUpdatePage(); // wihout it there is a lag  and newContacts list is created with old deleted contact (because page isn't updated in time even with GoToHomePage method)
+            app.Navigator.GoToHomePage(); 
+
+            Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount()); 
+
+            //   app.WaitUpdatePage(); // wihout it there is a lag  and newContacts list is created with old deleted contact (because page isn't updated in time even with GoToHomePage method)
 
             List<ContactData> newContacts = app.Contacts.GetContactist();
 
@@ -92,6 +98,10 @@ namespace WebAddressbookTests
 
 
             app.Contacts.Remove_FromCard();
+            app.Navigator.GoToHomePage();
+
+            Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
+
 
             List<ContactData> newContacts = app.Contacts.GetContactist();
                        
