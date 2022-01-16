@@ -84,7 +84,7 @@ namespace WebAddressbookTests
             }
 
 
-            return contactCache;
+            return new List<ContactData>(contactCache);
         }
 
 
