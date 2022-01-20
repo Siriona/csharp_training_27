@@ -27,6 +27,15 @@ namespace WebAddressbookTests
             newData.Bmonth = "June";
             newData.Aday = "7";
             newData.Amonth = "June";
+            newData.Address = "address 11";
+            newData.Home = "+9(000)5к65767+111";
+            newData.Work = "9(bvggvn)--11";
+            newData.Mobile = "0(45567)-565-65756-76-7";
+            newData.Email = "mail11@ee.ru";
+            newData.Email2 = "mail22@.ru";
+            newData.Email3 = "33@33.ru";
+
+
 
             ContactData contact = new ContactData("First", "Last");
             contact.Middlename = "";
@@ -36,6 +45,14 @@ namespace WebAddressbookTests
             contact.Aday = "8";
             contact.Amonth = "July";
             contact.New_group = "[none]";
+            contact.Address = "address 11";
+            contact.Home = "+9(000)5к65767+111";
+            contact.Work = "9(bvggvn)--11";
+            contact.Mobile = "0(45567)-565-65756-76-7";
+            contact.Email = "mail11@ee.ru";
+            contact.Email2 = "mail22@.ru";
+            contact.Email3 = "33@33.ru";
+
 
             app.Contacts.CheckContactCreate(contact);
 
@@ -76,6 +93,15 @@ namespace WebAddressbookTests
             newData.Bmonth = "June";
             newData.Aday = "7";
             newData.Amonth = "June";
+            newData.Address = "address 11";
+            newData.Home = "+9(000)5к65767+111";
+            newData.Work = "9(bvggvn)--11";
+            newData.Mobile = "0(45567)-565-65756-76-7";
+            newData.Email = "mail11@ee.ru";
+            newData.Email2 = "mail22@.ru";
+            newData.Email3 = "33@33.ru";
+
+
 
             ContactData contact = new ContactData("First", "Last");
             contact.Middlename = "";
@@ -85,6 +111,13 @@ namespace WebAddressbookTests
             contact.Aday = "8";
             contact.Amonth = "July";
             contact.New_group = "[none]";
+            contact.Address = "address 11";
+            contact.Home = "+9(000)5к65767+111";
+            contact.Work = "9(bvggvn)--11";
+            contact.Mobile = "0(45567)-565-65756-76-7";
+            contact.Email = "mail11@ee.ru";
+            contact.Email2 = "mail22@.ru";
+            contact.Email3 = "33@33.ru";
 
             app.Contacts.CheckContactCreate(contact);
 

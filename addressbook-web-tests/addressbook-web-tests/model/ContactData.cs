@@ -3,26 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
 
-        private string firstname;
         private string middlename = "";
-        private string lastname;
         private string nickname = "";
         private string title = ""; 
         private string company = "";
-        private string address = "";
-        private string home = "";
-        private string mobile = "";
-        private string work = "";
         private string fax = "";
-        private string email = "";
-        private string email2 = "";
-        private string email3 = "";
+    
         private string homepage = "www.default_homepage_for_all_contacts.ru";
         private string bday = "";
 
@@ -43,14 +36,13 @@ namespace WebAddressbookTests
         private string notes = "";
 
 
-
-
+        private string allPhones;
+        private string allEmails; 
 
         public ContactData (string firstname, string lastname)
         {
             Firstname = firstname;
             Lastname = lastname;
-
         }
 
         public bool Equals(ContactData other)
@@ -111,8 +103,95 @@ namespace WebAddressbookTests
             }
 
         }
-        public string Lastname         { get; set; } 
+        public string Lastname         { get; set; }
 
+        public string Address        { get; set; }
+
+        public string Home { get; set; }
+
+        public string Mobile { get; set; }
+        public string Work { get; set; }
+
+        public string AllPhones
+
+        {
+
+            get
+            {
+
+                if (allPhones != null)
+                {
+
+                    return allPhones;
+                }
+                else
+
+                    return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work)).Trim();
+            }
+
+            set
+            {
+                allPhones = value; 
+            }
+
+        }
+
+        
+        
+        public string CleanUp(string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+
+            return Regex.Replace(phone, "[ ()-]", "") + "\r\n"; 
+
+            //   return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")","")+ "\r\n";
+        }
+
+        public string Email { get; set; }
+
+        public string Email2 { get; set; }
+
+        public string Email3 { get; set; }
+
+
+        public string AllEmails
+
+        {
+
+            get
+            {
+
+                if (allEmails != null)
+                {
+
+                    return allEmails;
+                }
+                else
+
+                    return (CleanUp_email(Email) + CleanUp_email(Email2) + CleanUp_email(Email3)).Trim();
+            }
+
+            set
+            {
+                allEmails = value;
+            }
+
+        }
+
+
+
+        public string CleanUp_email(string email)
+        {
+            if (email == null || email == "")
+            {
+                return "";
+            }
+
+            return email + "\r\n";
+        }
 
         public string Nickname
         {
@@ -156,64 +235,8 @@ namespace WebAddressbookTests
             }
 
         }
-        public string Address
-        {
-
-            get
-            {
-                return address;
-            }
-
-            set
-            {
-                address = value;
-            }
-
-        }
-
-        public string Home
-        {
-
-            get
-            {
-                return home;
-            }
-
-            set
-            {
-                home = value;
-            }
-
-        }
-
-        public string Mobile
-        {
-
-            get
-            {
-                return mobile;
-            }
-
-            set
-            {
-                mobile = value;
-            }
-
-        }
-        public string Work
-        {
-
-            get
-            {
-                return work;
-            }
-
-            set
-            {
-                work = value;
-            }
-
-        }
+   
+       
         public string Fax
         {
 
@@ -228,48 +251,7 @@ namespace WebAddressbookTests
             }
 
         }
-        public string Email
-        {
-
-            get
-            {
-                return email;
-            }
-
-            set
-            {
-                email = value;
-            }
-
-        }
-        public string Email2
-        {
-
-            get
-            {
-                return email2;
-            }
-
-            set
-            {
-                email2 = value;
-            }
-
-        }
-        public string Email3
-        {
-
-            get
-            {
-                return email3;
-            }
-
-            set
-            {
-                email3 = value;
-            }
-
-        }
+        
      
         public string Homepage
         {
