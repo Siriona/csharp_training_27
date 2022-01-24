@@ -70,12 +70,12 @@ namespace WebAddressbookTests
             return (Firstname+Lastname).GetHashCode();
         }
 
-    /*
+    
         public override string ToString()
         {
-            return (Firstname + ' ' + Lastname);
+        return "Firstname = " + Firstname + "\nMiddlename = " + Middlename + "\nLastname= " + Lastname; 
         }
-    */
+    
 
         public int CompareTo(ContactData other)
         {
