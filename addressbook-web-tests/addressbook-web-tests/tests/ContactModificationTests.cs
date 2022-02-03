@@ -11,12 +11,185 @@ namespace WebAddressbookTests
     public class ContactModificationTests : AuthTestBase
     {
 
-     
+
 
         // 1st contact = 2 line in table
 
 
         [Test]
+        public void ContactModificationTest_pencil_fromDB()
+        {
+
+            ContactData newData = new ContactData("First New11", "Last New11");
+            newData.Middlename = "";
+            newData.Nickname = "";
+            newData.Company = "";
+            newData.Title = "";
+            newData.Address = "";
+            newData.Bday = "7";
+            newData.Bmonth = "June";
+            newData.Byear = "2000";
+            newData.Aday = "7";
+            newData.Amonth = "June";
+            newData.Ayear = "2000";
+            newData.Address = "address 11";
+            newData.Home = "+9(000)5к65767+111";
+            newData.Work = "9(bvggvn)--11";
+            newData.Mobile = "0(45567)-565-65756-76-7";
+            newData.Fax = "0(4)";
+            newData.Email = "mail11@ee.ru";
+            newData.Email2 = "mail22@.ru";
+            newData.Email3 = "33@33.ru";
+            newData.Homepage = "";
+            newData.New_group = "[none]";
+            newData.Address2 = "";
+            newData.Phone2 = "";
+            newData.Notes = "";
+
+
+
+            ContactData contact = new ContactData("First", "Last");
+            contact.Middlename = "";
+            contact.Nickname = "";
+            contact.Company = "";
+            contact.Title = "";
+            contact.Address = "";
+            contact.Bday = "7";
+            contact.Bmonth = "June";
+            contact.Byear = "2000";
+            contact.Aday = "7";
+            contact.Amonth = "June";
+            contact.Ayear = "2000";
+            contact.Address = "address 11";
+            contact.Home = "+9(000)5к65767+111";
+            contact.Work = "9(bvggvn)--11";
+            contact.Mobile = "0(45567)-565-65756-76-7";
+            contact.Fax = "0(4)";
+            contact.Email = "mail11@ee.ru";
+            contact.Email2 = "mail22@.ru";
+            contact.Email3 = "33@33.ru";
+            contact.Homepage = "";
+            contact.New_group = "[none]";
+            contact.Address2 = "";
+            contact.Phone2 = "";
+            contact.Notes = "";
+
+
+            app.Contacts.CheckContactCreate(contact);
+
+
+            List<ContactData> oldContacts = ContactData.GetAll();
+
+            ContactData toBeModified = oldContacts[0];
+
+            app.Contacts.ModifyByPencil(newData, toBeModified);
+
+            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
+
+            List<ContactData> newContacts = ContactData.GetAll();
+
+            oldContacts[0].Firstname = newData.Firstname;
+            oldContacts[0].Lastname = newData.Lastname;
+
+            oldContacts.Sort();
+            newContacts.Sort();
+
+            Assert.AreEqual(oldContacts, newContacts);
+
+            app.Contacts.CompareContactsUiDb();
+
+
+        }
+
+
+        
+
+        [Test]
+        public void ContactModificationTest_card_fromDB()
+        {
+
+            ContactData newData = new ContactData("First New22", "Last New2222");
+            newData.Middlename = "";
+            newData.Nickname = "";
+            newData.Company = "";
+            newData.Title = "";
+            newData.Address = "";
+            newData.Bday = "7";
+            newData.Bmonth = "June";
+            newData.Byear = "2000";
+            newData.Aday = "7";
+            newData.Amonth = "June";
+            newData.Ayear = "2000";
+            newData.Address = "address 11";
+            newData.Home = "+9(000)5к65767+111";
+            newData.Work = "9(bvggvn)--11";
+            newData.Mobile = "0(45567)-565-65756-76-7";
+            newData.Fax = "0(4)";
+            newData.Email = "mail11@ee.ru";
+            newData.Email2 = "mail22@.ru";
+            newData.Email3 = "33@33.ru";
+            newData.Homepage = "";
+            newData.New_group = "[none]";
+            newData.Address2 = "";
+            newData.Phone2 = "";
+            newData.Notes = "";
+
+
+
+            ContactData contact = new ContactData("First", "Last");
+            contact.Middlename = "";
+            contact.Nickname = "";
+            contact.Company = "";
+            contact.Title = "";
+            contact.Address = "";
+            contact.Bday = "7";
+            contact.Bmonth = "June";
+            contact.Byear = "2000";
+            contact.Aday = "7";
+            contact.Amonth = "June";
+            contact.Ayear = "2000";
+            contact.Address = "address 11";
+            contact.Home = "+9(000)5к65767+111";
+            contact.Work = "9(bvggvn)--11";
+            contact.Mobile = "0(45567)-565-65756-76-7";
+            contact.Fax = "0(4)";
+            contact.Email = "mail11@ee.ru";
+            contact.Email2 = "mail22@.ru";
+            contact.Email3 = "33@33.ru";
+            contact.Homepage = "";
+            contact.New_group = "[none]";
+            contact.Address2 = "";
+            contact.Phone2 = "";
+            contact.Notes = "";
+
+            app.Contacts.CheckContactCreate(contact);
+
+
+            List<ContactData> oldContacts = ContactData.GetAll();
+
+            ContactData toBeModified = oldContacts[0];
+
+            app.Contacts.ModifyFromCard(newData, toBeModified);
+
+            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
+
+
+            List<ContactData> newContacts = ContactData.GetAll();
+
+            oldContacts[0].Firstname = newData.Firstname;
+            oldContacts[0].Lastname = newData.Lastname;
+            oldContacts.Sort();
+            newContacts.Sort();
+
+            Assert.AreEqual(oldContacts, newContacts);
+
+            app.Contacts.CompareContactsUiDb();
+
+        }
+
+        /*
+         * 
+         * [Test]
         public void ContactModificationTest_pencil()
         {
 
@@ -57,7 +230,7 @@ namespace WebAddressbookTests
             app.Contacts.CheckContactCreate(contact);
 
 
-            List<ContactData> oldContacts = app.Contacts.GetContactist();
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
 
 
             app.Contacts.ModifyByPencil(newData);
@@ -65,7 +238,7 @@ namespace WebAddressbookTests
             Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
 
 
-            List<ContactData> newContacts = app.Contacts.GetContactist();
+            List<ContactData> newContacts = app.Contacts.GetContactList();
           
                 oldContacts[0].Firstname = newData.Firstname;
                 oldContacts[0].Lastname = newData.Lastname;
@@ -81,8 +254,7 @@ namespace WebAddressbookTests
 
         }
 
-
-        [Test]
+          [Test]
         public void ContactModificationTest_card()
         {
 
@@ -122,14 +294,14 @@ namespace WebAddressbookTests
             app.Contacts.CheckContactCreate(contact);
 
 
-            List<ContactData> oldContacts = app.Contacts.GetContactist();
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             app.Contacts.ModifyFromCard(newData);
 
             Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
 
 
-            List<ContactData> newContacts = app.Contacts.GetContactist();
+            List<ContactData> newContacts = app.Contacts.GetContactList();
             
                 oldContacts[0].Firstname = newData.Firstname;
                 oldContacts[0].Lastname = newData.Lastname;
@@ -138,8 +310,6 @@ namespace WebAddressbookTests
 
             Assert.AreEqual(oldContacts, newContacts);
         }
-
-        /*
        
 
         // tests for change group - from home page

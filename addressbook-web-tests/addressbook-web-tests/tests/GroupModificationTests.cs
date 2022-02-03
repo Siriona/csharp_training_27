@@ -56,7 +56,53 @@ namespace WebAddressbookTests
 
         }
 
+        [Test]
+        public void GroupModificationTest_WithCreating_fromDB()
+        {
 
+            GroupData newData = new GroupData("test_name new");
+            GroupData group = new GroupData("test_name first");
+
+            newData.Header = null;
+            newData.Footer = null;
+            group.Header = null;
+            group.Footer = null;
+
+            app.Groups.CheckGroupCreate(group);
+
+            List<GroupData> oldGroups = GroupData.GetAll();
+
+            GroupData oldData = oldGroups[0];
+            GroupData toBeModified = oldGroups[0];
+
+
+            app.Groups.Modify(newData, toBeModified);
+
+            
+            Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
+
+            List<GroupData> newGroups = GroupData.GetAll();
+
+            oldGroups[0].Name = newData.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+
+            foreach (GroupData group1 in newGroups)
+            {
+                if (group1.Id == oldData.Id)
+                {
+                    Assert.AreEqual(newData.Name, toBeModified.Name);
+
+
+                }
+            }
+
+            // compare group lists from UI and DB
+
+            app.Groups.CompareGroupsUiDb();
+
+        }
 
     }
     

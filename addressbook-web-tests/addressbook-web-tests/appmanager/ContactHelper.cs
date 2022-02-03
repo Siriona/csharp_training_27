@@ -7,6 +7,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using System.Text.RegularExpressions;
+using NUnit.Framework;
+
 
 
 
@@ -54,7 +56,17 @@ namespace WebAddressbookTests
 
         }
 
+        public ContactHelper ModifyByPencil(ContactData newData, ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+            OpenEditFormByPencil_id(contact.Id);
+            EditContactInfo(newData);
+            manager.Navigator.GoToHomePage();
 
+
+            return this;
+
+        }
 
 
         public ContactHelper ModifyFromCard(ContactData newData)
@@ -67,10 +79,20 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper ModifyFromCard(ContactData newData, ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+            OpenContactCard_id(contact.Id);
+            OpenMofidicationFromCard();
+            EditContactInfo(newData);
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+
         private List<ContactData> contactCache = null;
 
 
-        public List<ContactData> GetContactist()
+        public List<ContactData> GetContactList()
         {
             if (contactCache == null)
             {
@@ -103,7 +125,15 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Remove_FromHomePage(ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact_id(contact.Id);
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCache = null;
 
+            return this;
+        }
 
 
         public ContactHelper Remove_FromCard()
@@ -117,6 +147,16 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Remove_FromCard(ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+            OpenContactCard_id(contact.Id);
+            OpenMofidicationFromCard();
+            driver.FindElement(By.XPath("//div[@id='content']/form[2]/input[2]")).Click();
+            contactCache = null;
+
+            return this;
+        }
 
         /*
         -----------------------------------
@@ -140,6 +180,14 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper SelectContact_id(string id)
+        {
+            manager.Navigator.GoToHomePage();
+
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value= '" + id + "'])")).Click();
+            return this;
+        }
+
 
         public ContactHelper OpenContactCard_2()
 
@@ -147,6 +195,15 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
 
             driver.FindElement(By.XPath("//img[@title= 'Details']")).Click();
+            return this;
+        }
+
+        public ContactHelper OpenContactCard_id(string id)
+
+        {
+            manager.Navigator.GoToHomePage();
+
+            driver.FindElement(By.XPath("//a[@href= 'view.php?id="+id+"']")).Click();
             return this;
         }
 
@@ -230,6 +287,16 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
 
             driver.FindElement(By.XPath("//img[@title= 'Edit']")).Click();
+            return this;
+        }
+
+        public ContactHelper OpenEditFormByPencil_id(string id)
+
+
+        {
+            manager.Navigator.GoToHomePage();
+            driver.FindElement(By.XPath("//a[@href= 'edit.php?id=" + id + "']")).Click();
+
             return this;
         }
 
@@ -506,6 +573,20 @@ namespace WebAddressbookTests
             return Int32.Parse(m.Value); 
 
             }
+
+
+        public void CompareContactsUiDb()
+        {
+
+            List<ContactData> fromUi = GetContactList();
+            fromUi.Sort();
+
+            List<ContactData> fromDb = ContactData.GetAll();
+            fromDb.Sort();
+
+            Assert.AreEqual(fromUi, fromDb);
+        }
+
         /*
 
     // Methods - Change groups

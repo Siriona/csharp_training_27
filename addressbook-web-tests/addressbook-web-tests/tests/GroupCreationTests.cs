@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using System;
@@ -9,6 +10,9 @@ using System.Xml;
 using System.Xml.Serialization;
 using Excel = Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json;
+using LinqToDB;
+using LinqToDB.Mapping;
+
 
 
 
@@ -103,6 +107,9 @@ namespace WebAddressbookTests
 
         }
 
+
+
+
         [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
@@ -121,6 +128,75 @@ namespace WebAddressbookTests
             // Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);  
 
         }
+
+
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
+        public void GroupCreationTest_fromDB(GroupData group)
+        {
+            
+            List<GroupData> oldGroups = GroupData.GetAll();
+
+            app.Groups.Create(group);
+
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
+
+            List<GroupData> newGroups = GroupData.GetAll();
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+
+
+            // compare group lists from UI and DB
+
+            app.Groups.CompareGroupsUiDb();
+
+
+
+            /*
+            List<GroupData> fromUi = app.Groups.GetGroupList();         
+            fromUi.Sort();
+
+            List<GroupData> fromDb = GroupData.GetAll();
+            fromDb.Sort();
+
+            Assert.AreEqual(fromUi, fromDb);
+            */
+
+            /*
+
+            foreach (GroupData ui in fromUi)
+                System.Console.WriteLine($"{ui.Name}");
+
+            System.Console.WriteLine("-------------");
+
+
+            foreach (GroupData db in fromDb)
+                 System.Console.WriteLine($"{db.Name}");
+
+            */
+
+
+        }
+
+        [Test]
+
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUi = app.Groups.GetGroupList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+
+            List<GroupData> fromDb = GroupData.GetAll();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+        }
+
+
 
         /*
         [Test, TestCaseSource("RandomGroupDataProvider")]
@@ -183,54 +259,3 @@ namespace WebAddressbookTests
 
 
 
-
-/*
-namespace WebAddressbookTests
-{
-    [TestFixture]
-    public class GroupCreationTests : AuthTestBase
-    {
-     
-
-
-
-
-
-
-
-        [Test]
-        public void GroupCreationTest()
-        {
-            GroupData group = new GroupData("test_name 100");
-            group.Header = "test_header 100";
-            group.Footer = "test_footer 100";
-            app.Groups.Create(group);
-  
-        }
-
-
-        [Test]
-        public void EmptyGroupCreation()
-        {
-            GroupData group = new GroupData("");
-            group.Header = "";
-            group.Footer = "";
-
-            app.Groups.Create(group);
-            
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-}
-*/
