@@ -50,9 +50,9 @@ namespace WebAddressbookTests
             return Name.GetHashCode();
         }
 
-        public override string ToString()
+       public override string ToString()
         {
-            return "name = " + Name + "\nheader= " + Header + "\nfooter = " + Footer; 
+           return "name = " + Name + "\nheader= " + Header + "\nfooter = " + Footer; 
         }
 
         public int CompareTo(GroupData other)
@@ -78,6 +78,9 @@ namespace WebAddressbookTests
         [Column(Name = "group_id"), PrimaryKey, Identity]
         public string Id { get; set; }
 
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
+
         public static List<GroupData> GetAll()
         {
             using (AddressBookDB db = new AddressBookDB())
@@ -87,9 +90,22 @@ namespace WebAddressbookTests
             }
         }
 
+
+        public List<ContactData> GetContacts()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                List<ContactData> ppp = 
+                 (from c in db.Contacts
+                        from gcr in db.GCR.Where(p => p.GroupId == Id && p.ContactId == c.Id && c.Deprecated == "0000-00-00 00:00:00")
+                        select c).Distinct().ToList();
+                return ppp;
+            }
+        }
+
     }
 
-
+    
 
 }
 

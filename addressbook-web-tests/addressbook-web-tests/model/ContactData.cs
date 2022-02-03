@@ -15,21 +15,11 @@ namespace WebAddressbookTests
 
     [Table(Name = "addressbook")]
 
-
-
-
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
 
-
-        // private string bmonth_path = "";
-
-
-
-
         private string allPhones;
         private string allEmails;
-
         private string allInfo;
         private string allInfoEdit;
         private string allInfoFIO;
@@ -79,8 +69,9 @@ namespace WebAddressbookTests
 
 
         public override string ToString()
-        {
-            return "Firstname = " + Firstname + "\nMiddlename = " + Middlename + "\nLastname= " + Lastname;
+       {
+            //    return "Firstname = " + Firstname + "\nMiddlename = " + Middlename + "\nLastname= " + Lastname;
+                return Firstname + " " + Lastname;
         }
 
 
@@ -99,12 +90,12 @@ namespace WebAddressbookTests
         {
             using (AddressBookDB db = new AddressBookDB())
             {
-                return (from g in db.Contacts select g).ToList();
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
 
             }
         }
 
-        [Column(Name = "id"), PrimaryKey, Identity]
+        [Column(Name = "id"), PrimaryKey]
         public string Id { get; set; }
 
 
@@ -182,6 +173,9 @@ namespace WebAddressbookTests
 
         [Column(Name = "notes")]
         public string Notes { get; set; }
+
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
 
         public string AllPhones
 

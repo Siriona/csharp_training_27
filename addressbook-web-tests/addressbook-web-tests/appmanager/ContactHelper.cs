@@ -42,7 +42,59 @@ namespace WebAddressbookTests
 
         }
 
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectContactForGroups(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
 
+        public void DeleteContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectGroup(group.Name);
+            SelectContactForGroups(contact.Id);
+            CommiRemovingFromGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        
+        }
+
+        public void SelectContactForGroups(string contactId)
+        {
+
+            driver.FindElement(By.Id(contactId)).Click();
+        }
+
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]"); 
+        }
+
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void SelectGroup(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
+        }
+
+        public void CommiRemovingFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
 
         public ContactHelper ModifyByPencil(ContactData newData)
         {
@@ -187,6 +239,8 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("(//input[@name='selected[]' and @value= '" + id + "'])")).Click();
             return this;
         }
+
+    
 
 
         public ContactHelper OpenContactCard_2()

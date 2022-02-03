@@ -181,7 +181,7 @@ namespace WebAddressbookTests
 
         [Test]
 
-        public void TestDBConnectivity()
+        public void TestDBConnectivity_CompareTime()
         {
             DateTime start = DateTime.Now;
             List<GroupData> fromUi = app.Groups.GetGroupList();
@@ -193,6 +193,25 @@ namespace WebAddressbookTests
             List<GroupData> fromDb = GroupData.GetAll();
             end = DateTime.Now;
             System.Console.Out.WriteLine(end.Subtract(start));
+
+        }
+
+        [Test]
+        public void TestDBConnectivity_GCR()
+        {
+            /*
+            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                System.Console.Out.WriteLine(contact);
+            }
+            */
+            foreach (ContactData contact in ContactData.GetAll())
+            {
+                System.Console.Out.WriteLine(contact.Deprecated);
+            }
+                
+         
+
 
         }
 
