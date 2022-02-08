@@ -66,20 +66,18 @@ namespace addressbook_tests_white
             TextBox textbox = (TextBox) dialogue.Get(SearchCriteria.ByControlType(ControlType.Edit));
             textbox.Enter(newGroup.Name);
             Keyboard.Instance.PressSpecialKey(KeyboardInput.SpecialKeys.RETURN); //simulate ENTER
-//            aux.Send(newGroup.Name);
 
-
-            //          aux.Send("{ENTER}");
             CloseGroupsDialog(dialogue);
 
         }
 
-        public void Remove()
-        {
-            string groupName = GetGroupForRemove().Name;
-            Window dialogue = OpenGroupsDialog();
+        
 
-            
+        public void Remove(GroupData groupToRemove)
+        {
+            string groupName = groupToRemove.Name;
+            Window dialogue = OpenGroupsDialog();
+           
 
             TreeNode tree = dialogue.Get<TreeNode>(SearchCriteria.ByText(groupName));
             tree.Select();
@@ -90,6 +88,7 @@ namespace addressbook_tests_white
 
         }
 
+        /*
         public GroupData GetGroupForRemove()
         {
             List<GroupData> list = new List<GroupData>();
@@ -109,8 +108,8 @@ namespace addressbook_tests_white
             CloseGroupsDialog(dialogue);
 
             return group;
-
+        
         }
-
+        */
     }
 }
