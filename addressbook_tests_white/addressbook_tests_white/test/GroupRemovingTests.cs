@@ -16,19 +16,17 @@ namespace addressbook_tests_white
             GroupData newGroup = new GroupData()
             {
                 Name = "01white"
-            };          
+            };
+            
+
+            // to be sure at least one group exists and to keep test data existing
+            // if disable -> the first group in list will be removed if it exists 
+            app.Groups.Add(newGroup);
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
+            GroupData groupToRemove = app.Groups.GetGroupForRemove();
 
-            if (oldGroups.Count == 1) //application doesn't allow to delete the last group, at least one group always exists
-            {
-                app.Groups.Add(newGroup);
-            }
-            
-            GroupData groupToRemove = app.Groups.GetGroupList()[0];
-            
-
-            app.Groups.Remove(groupToRemove);
+            app.Groups.Remove();
 
             
             List<GroupData> newGroups = app.Groups.GetGroupList();
