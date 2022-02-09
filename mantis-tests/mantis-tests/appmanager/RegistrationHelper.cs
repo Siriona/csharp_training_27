@@ -44,7 +44,8 @@ namespace mantis_tests
 
         public void SubmitRegistration()
         {
-            throw new NotImplementedException();
+            driver.FindElement(By.XPath("//input[@type= 'submit']")).Click();
         }
+
     }
 }

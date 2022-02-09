@@ -6,9 +6,9 @@ using System.IO;
 
 namespace mantis_tests
 {
-    
+
     [TestFixture]
-    public class AccountCreationTests : TestBase
+    public class LoginTests : TestBase
     {
         /*
         [OneTimeSetUp]
@@ -22,25 +22,26 @@ namespace mantis_tests
             }
         }
         */
-       
+
 
         [Test]
-        public void TestAccountRegistration()
+        public void TestLogin()
         {
             AccountData account = new AccountData()
             {
 
-                Name = "testuser",
-                Password = "password",
-                Email = "testuser@localhost.localdomain"
+                Name = "administrator",
+                Password = "root",
 
             };
 
-            app.Registration.Register(account);
+            app.Login.Logout();
+
+            app.Login.Login(account);
 
         }
 
-  
+
 
     }
 }

@@ -14,7 +14,7 @@ namespace mantis_tests
 
         protected ApplicationManager app;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetupApplicationManager()
         {
 

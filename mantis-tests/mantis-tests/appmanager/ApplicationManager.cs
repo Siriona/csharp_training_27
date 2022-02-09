@@ -22,6 +22,12 @@ namespace mantis_tests
 
         public FtpHelper Ftp { get; set; }
 
+        public LoginHelper Login { get; set; }
+
+        public ManagementMenuHelper MenuManager { get; set; }
+
+        public ProjectManagementHelper Project { get; set; }
+
 
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
@@ -31,13 +37,15 @@ namespace mantis_tests
 
 
             driver = new FirefoxDriver();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             baseURL = "http://localhost";
 
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);
+            Login = new LoginHelper(this);
+            MenuManager = new ManagementMenuHelper(this);
+            Project = new ProjectManagementHelper(this);
 
-           
 
         }
 
