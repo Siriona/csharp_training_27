@@ -10,18 +10,7 @@ namespace mantis_tests
     [TestFixture]
     public class ProjectTests : AuthBase
     {
-        /*
-        [OneTimeSetUp]
-        public void setUpConfig()
-        {
-            app.Ftp.BackupFile("config_inc.php");
-            using (Stream localFile = File.Open("config_inc.php", FileMode.Open))
-            {
-                app.Ftp.Upload("config_inc.php", localFile);
-
-            }
-        }
-        */
+     
 
 
         [Test]
@@ -38,7 +27,7 @@ namespace mantis_tests
             ProjectData project = new ProjectData()
             {
 
-                Name = "Project01",
+                Name = "Project" + " " + DateTime.Now,
                 Description = "Test",
 
             };
@@ -53,17 +42,13 @@ namespace mantis_tests
             Assert.AreEqual(oldProjects.Count + 1, app.Project.GetProjectCount());
 
             List<ProjectData> newProjects = app.Project.GetProjectList();
-            int count = newProjects.Count;
 
-
-            oldProjects.Add(project);
-         
-
+            oldProjects.Add(project);  
+            
             oldProjects.Sort();
-
             newProjects.Sort();
-
-            /*
+            
+            
             foreach (ProjectData old in oldProjects)
                 System.Console.WriteLine($"{old.Name}");
 
@@ -73,9 +58,9 @@ namespace mantis_tests
             foreach (ProjectData newpr in newProjects)
                 System.Console.WriteLine($"{newpr.Name}");
 
-            */
+            
 
-          //  Assert.AreEqual(oldProjects, newProjects);
+            Assert.AreEqual(oldProjects, newProjects);
         }
 
         [Test]
@@ -92,7 +77,7 @@ namespace mantis_tests
             ProjectData project = new ProjectData()
             {
 
-                Name = "Project02",
+                Name = "Project" + " " + DateTime.Now,
                 Description = "Test",
 
             };
@@ -130,7 +115,7 @@ namespace mantis_tests
             ProjectData project = new ProjectData()
             {
 
-                Name = "Group001",
+                Name = "Project" + " " + DateTime.Now,
                 Description = "Test",
 
             };
@@ -139,7 +124,6 @@ namespace mantis_tests
             app.Login.Login(account);
             app.MenuManager.OpenMenuProject();
             app.Project.GetProjectList();
-
             app.Project.GetProjectCount();
 
 

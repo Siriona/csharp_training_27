@@ -20,7 +20,7 @@ namespace mantis_tests
             };
 
 
-            app.Login.Login(new AccountData());
+            app.Login.Login(account);
 
         }
 

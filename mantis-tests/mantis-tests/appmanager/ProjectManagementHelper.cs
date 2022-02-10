@@ -92,7 +92,7 @@ namespace mantis_tests
 
                     projectCache.Add(new ProjectData()
                     {
-                        Name = driver.FindElement(By.XPath("//table[@class='table table-striped table-bordered table-condensed table-hover']/tbody/tr/td/a")).Text
+                        Name = element.Text
 
                     });
 

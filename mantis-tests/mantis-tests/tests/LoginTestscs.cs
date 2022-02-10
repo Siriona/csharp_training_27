@@ -10,18 +10,7 @@ namespace mantis_tests
     [TestFixture]
     public class LoginTests : TestBase
     {
-        /*
-        [OneTimeSetUp]
-        public void setUpConfig()
-        {
-            app.Ftp.BackupFile("config_inc.php");
-            using (Stream localFile = File.Open("config_inc.php", FileMode.Open))
-            {
-                app.Ftp.Upload("config_inc.php", localFile);
-
-            }
-        }
-        */
+     
 
 
         [Test]
