@@ -28,6 +28,9 @@ namespace mantis_tests
 
         public ProjectManagementHelper Project { get; set; }
 
+        public JamesHelper James { get; set; }
+
+        public MailHelper Mail { get; set; }
 
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
@@ -45,8 +48,8 @@ namespace mantis_tests
             Login = new LoginHelper(this);
             MenuManager = new ManagementMenuHelper(this);
             Project = new ProjectManagementHelper(this);
-
-
+            James = new JamesHelper(this);
+            Mail = new MailHelper(this);
         }
 
         /*

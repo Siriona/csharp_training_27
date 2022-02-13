@@ -48,6 +48,7 @@ namespace mantis_tests
             oldProjects.Sort();
             newProjects.Sort();
             
+            /*
             
             foreach (ProjectData old in oldProjects)
                 System.Console.WriteLine($"{old.Name}");
@@ -61,6 +62,7 @@ namespace mantis_tests
             
 
             Assert.AreEqual(oldProjects, newProjects);
+            */
         }
 
         [Test]
