@@ -89,6 +89,7 @@ namespace mantis_tests
             */
         }
 
+        [Test]
         public void TestProjectRemovalAPI()
         {
             AccountData account = new AccountData()
@@ -116,16 +117,19 @@ namespace mantis_tests
             }
 
             //here begin old methods wihout API
-            List<ProjectData> oldProjects = app.Project.GetProjectList();
+           
 
             app.Login.Login(account);
             app.MenuManager.OpenMenuProject();
+            List<ProjectData> oldProjects = app.Project.GetProjectList();
 
             app.Project.Remove();
 
-            Assert.AreEqual(oldProjects.Count - 1, app.Project.GetProjectCount());
+  
+            Assert.AreEqual(oldProjects.Count - 1, app.Project.GetProjectCount());        
 
 
+            
         }
 
         [Test]
