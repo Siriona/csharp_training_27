@@ -10,8 +10,32 @@ namespace mantis_tests
     [TestFixture]
     public class ProjectTests : AuthBase
     {
-     
 
+      
+
+        [Test]
+
+        public void TestProjectCreationAPI()
+        {
+            AccountData account = new AccountData()
+            {
+
+                Name = "administrator",
+                Password = "root",
+
+            };
+
+            ProjectData project = new ProjectData()
+            {
+
+                Name = "Project" + " " + DateTime.Now,
+                Description = "Test",
+
+            };
+
+            app.API.CreateNewProject(account, project);
+
+        }
 
         [Test]
         public void TestProjectCreation()
@@ -65,6 +89,45 @@ namespace mantis_tests
             */
         }
 
+        public void TestProjectRemovalAPI()
+        {
+            AccountData account = new AccountData()
+            {
+
+                Name = "administrator",
+                Password = "root",
+
+            };
+
+            ProjectData project = new ProjectData()
+            {
+
+                Name = "Project" + " " + DateTime.Now,
+                Description = "Test",
+
+            };
+
+            int projectsCount = app.API.GetProjectsList(account).Length;
+
+
+            if (projectsCount == 0)
+            {
+                app.API.CreateNewProject(account, project);
+            }
+
+            //here begin old methods wihout API
+            List<ProjectData> oldProjects = app.Project.GetProjectList();
+
+            app.Login.Login(account);
+            app.MenuManager.OpenMenuProject();
+
+            app.Project.Remove();
+
+            Assert.AreEqual(oldProjects.Count - 1, app.Project.GetProjectCount());
+
+
+        }
+
         [Test]
         public void TestProjectRemoval()
         {
@@ -104,6 +167,25 @@ namespace mantis_tests
 
         [Test]
 
+        public void GetListAPI()
+        {
+            AccountData account = new AccountData()
+            {
+
+                Name = "administrator",
+                Password = "root",
+
+            };
+
+            Mantis.ProjectData[] projects = app.API.GetProjectsList(account);
+
+            foreach (Mantis.ProjectData project in projects)
+                Console.Out.WriteLine(project.name);
+
+        }
+
+        [Test]
+
         public void GetList()
         {
             AccountData account = new AccountData()
@@ -130,6 +212,9 @@ namespace mantis_tests
 
 
         }
+
+
+
 
 
 

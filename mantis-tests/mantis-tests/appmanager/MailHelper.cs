@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpaqueMail;
 
+
 namespace mantis_tests
 {
     public class MailHelper: HelperBase
@@ -26,6 +27,7 @@ namespace mantis_tests
                     OpaqueMail.MailMessage message = pop3.GetMessage(1);
                     string body = message.Body;
                     pop3.DeleteMessage(1);
+                    pop3.LogOut();
                     return message.Body;
                 }
                 else

@@ -32,6 +32,12 @@ namespace mantis_tests
 
         public MailHelper Mail { get; set; }
 
+        public AdminHelper Admin { get; set; }
+
+        public APIHelper API { get; set; }
+
+
+
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
@@ -41,7 +47,7 @@ namespace mantis_tests
 
             driver = new FirefoxDriver();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            baseURL = "http://localhost";
+            baseURL = "http://localhost/mantisbt-2.25.2";
 
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);
@@ -50,6 +56,9 @@ namespace mantis_tests
             Project = new ProjectManagementHelper(this);
             James = new JamesHelper(this);
             Mail = new MailHelper(this);
+            Admin = new AdminHelper(this, baseURL);
+            API = new APIHelper(this);
+
         }
 
         /*
@@ -59,7 +68,7 @@ namespace mantis_tests
         }
         */
 
-         ~ApplicationManager()
+        ~ApplicationManager()
         {
             try
             {
@@ -76,7 +85,7 @@ namespace mantis_tests
             if (! app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
-                newInstance.driver.Url = "http://localhost/mantisbt-2.25.2/login_page.php";
+                newInstance.driver.Url = newInstance.baseURL + "/login_page.php";
                 app.Value = newInstance;
 
 
