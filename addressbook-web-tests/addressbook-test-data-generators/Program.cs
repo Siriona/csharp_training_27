@@ -65,7 +65,7 @@ namespace addressbook_test_data_generators
                     Bmonth = "July",
                     Byear = "2000",
                     Aday = "1",
-                    Amonth = "July",
+                    Amonth = "july",
                     Ayear = "2000",
                     New_group = "",
                     Address2 = TestBase.GenerateRandomString(10),
