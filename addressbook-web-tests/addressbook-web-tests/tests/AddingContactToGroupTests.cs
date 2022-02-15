@@ -58,12 +58,12 @@ namespace WebAddressbookTests
             }
 
             GroupData group = GroupData.GetAll()[0];
-            List<ContactData> contactList = group.GetContacts();
+            List<ContactData> oldList = group.GetContacts();
 
-            List<ContactData> oldList = ContactData.GetAll();
+            List<ContactData> allContactsList = ContactData.GetAll();
 
 
-            ContactData contact = oldList.Except(contactList).FirstOrDefault();
+            ContactData contact = allContactsList.Except(oldList).FirstOrDefault();
 
             
 
@@ -73,7 +73,6 @@ namespace WebAddressbookTests
                
 
                 app.Contacts.Create(newContact);
-                oldList.Add(newContact);
             }
 
             ContactData contactToAdd = ContactData.GetAll().Except(group.GetContacts()).First();
@@ -82,7 +81,7 @@ namespace WebAddressbookTests
             app.Contacts.AddContactToGroup(contactToAdd, group);
 
             List<ContactData> newList = group.GetContacts();
-
+            oldList.Add(contactToAdd);
             newList.Sort();
             oldList.Sort();
 
@@ -112,11 +111,20 @@ namespace WebAddressbookTests
 
         public void TestDeletingContactFromGroup()
         {
+           
+
+
+            if (GroupData.GetAll().Count == 0)
+            {
+                GroupData newGroup = new GroupData("Group1");
+                app.Groups.Create(newGroup);
+            }
+
             GroupData group = GroupData.GetAll()[0];
 
 
             ContactData newContact = new ContactData("F new", "L new");
-             
+
             newContact.Middlename = "";
             newContact.Nickname = "";
             newContact.Company = "";
@@ -143,32 +151,29 @@ namespace WebAddressbookTests
             newContact.Notes = "";
 
 
-            if (GroupData.GetAll().Count == 0)
-            {
-                GroupData newGroup = new GroupData("Group1");
-                app.Groups.Create(newGroup);
-            }
-
-
             List<ContactData> oldList = ContactData.GetAll();
+
+            if (oldList.Count == 0)
+            {
+                app.Contacts.Create(newContact); //this contact will be added to the appropriate group immediately while creating (by group.Id)
+                oldList.Add(newContact);
+
+            }
 
             List<ContactData> contactList = group.GetContacts();
 
-
-            ContactData contact = oldList.Except(contactList).FirstOrDefault();
-
-            if (contact == null)
+            if (contactList.Count == 0)
             {
-                
-                app.Contacts.Create(newContact);
-                oldList.Add(newContact);
-
-
+                ContactData contactToAdd = oldList.Except(contactList).First();
+                app.Contacts.AddContactToGroup(contactToAdd, group);
+                contactList.Add(contactToAdd);
             }
 
-            ContactData contactToDel = ContactData.GetAll().Intersect(group.GetContacts()).First();
 
-            app.Contacts.DeleteContactFromGroup(contactToDel, group);
+            ContactData contact = contactList.FirstOrDefault();
+
+       
+            app.Contacts.DeleteContactFromGroup(contact, group);
 
             List<ContactData> newList = ContactData.GetAll();
 
