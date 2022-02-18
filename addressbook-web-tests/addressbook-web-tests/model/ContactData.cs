@@ -59,7 +59,7 @@ namespace WebAddressbookTests
             }
 
 
-            return (Firstname == other.Firstname) && (Lastname == other.Lastname);
+            return (Firstname == other.Firstname) && (Lastname == other.Lastname) && (Id == other.Id);
         }
 
         public override int GetHashCode()

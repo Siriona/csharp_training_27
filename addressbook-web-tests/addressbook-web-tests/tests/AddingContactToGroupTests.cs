@@ -24,7 +24,7 @@ namespace WebAddressbookTests
 
         public void TestAddingContactToGroup()
         {
-            ContactData newContact = new ContactData("F new", "L new");
+            ContactData newContact = new ContactData("First Name" + DateTime.Now, "Last Name" + DateTime.Now);
             newContact.Middlename = "";
             newContact.Nickname = "";
             newContact.Company = "";
@@ -123,7 +123,7 @@ namespace WebAddressbookTests
             GroupData group = GroupData.GetAll()[0];
 
 
-            ContactData newContact = new ContactData("F new", "L new");
+            ContactData newContact = new ContactData("First Name" + DateTime.Now, "Last Name" + DateTime.Now);
 
             newContact.Middlename = "";
             newContact.Nickname = "";
